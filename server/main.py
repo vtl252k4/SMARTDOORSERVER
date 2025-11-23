@@ -31,7 +31,7 @@ app.mount("/face_data", StaticFiles(directory=FACE_FOLDER), name="face_data")
 uid_encoding_cache = {}  # { uid: embedding_vector }
 active_sessions = {}     # { uid: {"status": "pending"/"yess"/"noo", "ts": epoch_seconds} }
 SESSION_TTL_SEC = 45
-THRESHOLD = 0.40  # Ngưỡng tương đồng
+THRESHOLD = 0.45  # Ngưỡng tương đồng
 
 # Khởi tạo InsightFace
 print("[InsightFace] Đang khởi tạo model...")
@@ -158,56 +158,6 @@ def delete_uid_file(uid: str):
 def cosine_similarity(emb1, emb2):
     """Tính độ tương đồng cosine (đã chuẩn hóa L2)"""
     return np.dot(emb1, emb2)
-
-# ============= WiFi Config =============
-# if not os.path.exists(WIFI_CONFIG_FILE):
-#     with open(WIFI_CONFIG_FILE, "w", encoding="utf8") as f:
-#         json.dump({"ssid": "", "password": ""}, f, ensure_ascii=False)
-
-# def load_wifi():
-#     with open(WIFI_CONFIG_FILE, "r", encoding="utf8") as f:
-#         return json.load(f)
-
-# def save_wifi(ssid, password):
-#     with open(WIFI_CONFIG_FILE, "w", encoding="utf8") as f:
-#         json.dump({"ssid": ssid, "password": password}, f, ensure_ascii=False)
-
-# @app.get("/wifi_config")
-# async def get_wifi_config():
-#     """ESP32 lấy WiFi config"""
-#     return load_wifi()
-
-# @app.get("/wifi_panel", response_class=HTMLResponse)
-# async def wifi_panel():
-#     wifi = load_wifi()
-#     return f"""
-#     <html>
-#     <head><title>WiFi Configuration</title></head>
-#     <body style='font-family:Arial;padding:30px;'>
-#         <h2>WiFi Configuration</h2>
-#         <form method="POST" action="/wifi_panel">
-#             <label>Admin Password:</label><br>
-#             <input type="password" name="admin_pw" required><br><br>
-#             <label>WiFi SSID:</label><br>
-#             <input type="text" name="ssid" value="{wifi['ssid']}" required><br><br>
-#             <label>WiFi Password:</label><br>
-#             <input type="text" name="password" value="{wifi['password']}" required><br><br>
-#             <button type="submit">Update WiFi</button>
-#         </form>
-#         <hr>
-#         <p><b>Current Saved WiFi:</b><br>
-#         SSID: {wifi['ssid']}<br>
-#         Password: {wifi['password']}</p>
-#     </body>
-#     </html>
-#     """
-
-# @app.post("/wifi_panel", response_class=HTMLResponse)
-# async def update_wifi(admin_pw: str = Form(...), ssid: str = Form(...), password: str = Form(...)):
-#     if admin_pw != WIFI_PANEL_PASSWORD:
-#         return HTMLResponse("Sai mật khẩu Admin<br><a href='/wifi_panel'>Quay lại</a>")
-#     save_wifi(ssid, password)
-#     return HTMLResponse(f"WiFi đã cập nhật!<br>SSID: {ssid}<br><a href='/wifi_panel'>Quay lại</a>")
 
 # ============= Upload Panel =============
 @app.get("/upload_panel", response_class=HTMLResponse)
