@@ -31,7 +31,7 @@ app.mount("/face_data", StaticFiles(directory=FACE_FOLDER), name="face_data")
 uid_encoding_cache = {}  # { uid: embedding_vector }
 active_sessions = {}     # { uid: {"status": "pending"/"yess"/"noo", "ts": epoch_seconds} }
 SESSION_TTL_SEC = 45
-THRESHOLD = 0.6  # Ngưỡng tương đồng
+THRESHOLD = 0.40  # Ngưỡng tương đồng
 
 # Khởi tạo InsightFace
 print("[InsightFace] Đang khởi tạo model...")
