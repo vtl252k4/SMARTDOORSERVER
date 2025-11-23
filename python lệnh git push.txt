@@ -1,0 +1,27 @@
+git init
+git add .
+git commit -m "Initial commit - Smart Door Flask Server"
+git branch -M main
+git remote add origin https://github.com/<tên_user>/smartdoor-server.git
+git push -u origin main
+git push -u origin main --force // nếu respon trên git có sẵn readme thì dùng lệnh này để ghi đè
+
+
+2. Commit & push code lên GitHub khi thêm file mới
+
+git add .
+git commit -m "Deploy FastAPI server to Render"
+git push
+
+
+xem danh sách repo đang dùng để push
+git remote -v
+đổi sang repo mới 
+git remote set-url origin https://github.com/ttkiet005/smartdoortest.git
+
+1️⃣ Cấu hình cho toàn bộ máy tính (global) — dùng 1 lần là xong
+
+Gõ vào PowerShell hoặc CMD:
+
+git config --global user.name "Tên của bạn"
+git config --global user.email "email_github_của_bạn@example.com"
